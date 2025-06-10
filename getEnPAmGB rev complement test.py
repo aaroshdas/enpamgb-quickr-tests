@@ -32,7 +32,17 @@ sequences = ["GCGAACTGAGAAGGGCCAAGGTATTGTGGCAGCA", "GAACCTTTGCTGCCACAATACCTTGGCC
 			 "GCGAACTGAGAAGGGCCAAGGTATAGTGGCAGCA", "TACCTTTGCTGCCACAATCCCTTGGCCCTTCTCA", "GAAGGGCCAAGGTATTGTTGCAGCAAAGTTCCTA",
 			 "GAGAAGGGCCAAGGTATTTTGGCAGCAAAGTTCC", "TGACTTTGAATGGAGTCGTGAGCGCAAGAACGCT", "GTTATTTGAGCAATGCCACTTAATAAACATGTAA"			 
 			 ]
-
+reverseDict ={"T":"A", "A":"T","C":"G", "G":"C"}
+def ReverseComplement(seq):
+    newSequences = []
+    for i in seq:
+        revSeq = ""
+        for letter in i:
+            revSeq += reverseDict[letter]
+        newSequences.append(revSeq)
+    return newSequences
+sequences = ReverseComplement(sequences)
+print(sequences)
 prediction = model.predict_seqs(sequences)
 print("ignore annoying deprecatation warnings")
 #pip install biopython==1.74 joblib==0.13.2 numpy==1.21.6 pandas==0.24.2 scikit-learn==0.21.2 tensorflow==1.14.0
@@ -42,10 +52,3 @@ print(prediction)
 print("PREDICTION RESULT FOR GOOGLE SHEET")
 for i in prediction:
 	print(i*100)
-
-
-# Existing data:
-#kim_2018_train = da.load_kim_2018_train()
-#model.fit(kim_2018_train)
-#kim_2018_test = da.load_kim_2018_test()
-#results = model.predict(kim_2018_test)
